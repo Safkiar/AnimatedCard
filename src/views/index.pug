@@ -7,9 +7,9 @@ block content
                 .dynamic-border
                 .card__preview__front--first
                     .card__preview__front-chip
-                        +addPicture('chip.png', 'chip-image', 'display: block;max-width:50px;max-height:40px;')
+                        img.chip-image(src='@images/chip.png' alt='chip' title='chip')
                     .card__preview__front-company
-                        +addPicture('visa.png','company-image','display:block;max-width:70px;max-height:45px;')
+                        img.company-image.visa-image-front(src='@images/visa.png' alt='VISA' title='VISA')
                 .card__preview__front--second
                     .card__preview__front-number
                         .card__preview__front-number--firstFour 
@@ -50,7 +50,7 @@ block content
                     .card__preview__back__box-label CVV
                     .card__preview__back__box-inputView ###
                     .card__preview__back__box-company
-                        +addPicture('visa.png','company-image','display:block;max-width:70px;max-height:40px; ')
+                        img.company-image.visa-image-back(src='@images/visa.png' alt='VISA' title='VISA')
         form.card__form(action="/submit", method="post")
             label(for="cardNumber") Card Number
             input.card__form--input(type="text" id="cardNumber" name="cardNumber" placeholder="Card number" value=cardNumber onChange=handleInputChange minLength="19" maxLength="19")

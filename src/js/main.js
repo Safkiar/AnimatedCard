@@ -1,7 +1,5 @@
 import 'picturefill'
 import custom from './modules/custom'
-import './images'; 
-import '../scss/app.scss';
 import numbers from './modules/numbers';
 import spaceDigits from './modules/spaceDigits';
 import cvv from './modules/cvv';
