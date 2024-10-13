@@ -1,0 +1,8 @@
+Create html structure using correct semantics for elements.
+Create js functions which will trigger all form actions on the card preview.
+Create sass styles to all elements to make them look like on preview.
+Export project using npm run export
+Push project to your account as fork and send link to it to interviewers e-mail address.
+
+Remember about responsiveness
+Use correct semantics, remember about BEM etc.

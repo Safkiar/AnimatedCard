@@ -1,0 +1,72 @@
+
+.card__form {
+    margin: 0 auto;
+    padding: 130px 30px 30px 30px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    &--input,
+    &--select {
+        padding: 0px;
+        box-sizing: border-box; 
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 0.8rem;
+
+        &:focus {
+            border-color: #007bff; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            font-weight: 500;
+            outline: none; 
+        }
+    }
+
+
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 5px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background-color: #0055d4;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    &__row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    &__group {
+        flex: 1;
+        &:nth-child(2) {
+            margin-right: 12px;
+        }
+    }
+
+    &--select,
+    &--input {
+        width: 100%;
+    }
+
+  
+}
+

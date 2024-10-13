@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'Andale Mono';
+    src: url('../../fonts/ANDALEMO.TTF') format('truetype');
+  }
+
+
+
+.container {
+    width: 450px;
+    height: 480px;
+
+    margin: 20px auto;
+    margin-top: 150px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+    perspective: 1000px;
+
+}
+
+.card__preview {
+    font-family: 'Andale Mono', monospace;
+    position: absolute;
+    top: -4%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 350px;
+    height: 220px;
+    box-shadow: 0 20px 30px 5px rgba(0, 0, 0, 0.35);
+    color: white;
+    border-radius: 15px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+
+    &__front,
+    &__back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+
+        box-sizing: border-box;
+        
+    }
+
+    &__front {
+        padding: 20px;
+        z-index: 2; 
+        background-image: url('../../images/background.jpg');
+        filter:contrast(120%) brightness(80%);
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &--first {
+            display: flex;
+            width: 100%;
+            justify-content:space-between;
+            box-sizing: border-box;
+        }
+        &--second {
+            width: 100%;
+        }
+        &--third {
+            display: flex;
+            width: 100%;
+            justify-content:space-between;
+        }
+
+        &-number {
+            font-size: 1.3rem;
+            padding-left: 4px;
+            display: flex;
+            gap: 28px;
+        }
+    
+        &-holder {
+            padding-left: 6px;
+            font-size: 1rem;
+            display: inline-block;
+            white-space: pre;
+            width: 100%;
+            width: 225px;
+        
+            span {
+                display: inline-block;
+                position: relative;
+            }
+            &--label {
+                color:#9b98aa;
+                font-size: 0.65rem;
+              
+                padding-bottom: 2px;
+            }
+            &--name {
+                font-size: 0.9rem;
+                margin-bottom: 2px;
+            }
+        }
+
+        &-expires {
+            padding-left: 6px;
+          
+            &--label {
+                color:#9b98aa;
+                font-size: 0.65rem;
+                padding-bottom: 2px;
+                text-align: right;
+            }
+            &--date {
+                font-size: 0.9rem;
+                text-align: right;
+                margin-bottom: 2px;
+            }
+        }
+    
+    }
+
+    &__back {
+        transform: rotateY(180deg); 
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../images/background.jpg');
+            filter:contrast(120%) brightness(80%);
+            background-size: cover;
+            transform: scaleX(-1);
+            top: 0;
+            left: 0;
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+
+        &-stripe {
+            margin-top: 25px;
+            background-color: black;
+            width: 100%;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+
+        &__box {
+            display: flex;
+            flex-direction: column;
+            padding: 5px 10px;
+            align-items: flex-end;
+
+            &-label {
+                color:#c3c1ce;
+                font-size: 0.75rem;
+                padding-bottom: 2px;
+                padding-right: 7px;
+                font-weight: bold;
+               
+
+            }
+            &-inputView {
+                background-color: rgb(255, 245, 245);
+                color: black;
+                font-size: 0.8rem;
+                font-weight: bold;
+                padding: 10px 4px;
+                text-align: right;
+                border-radius: 3px;
+                width: 100%;
+                box-sizing: border-box;
+
+            }
+
+            &-company {
+                margin-top: 20px;
+                img {
+                    filter: grayscale(70%) brightness(70%);
+                  }
+
+            }
+        }
+
+       
+    }
+
+    &.flipped {
+        transform: translate(-50%, -50%) rotateY(180deg); 
+      }
+}
+
+
+
+

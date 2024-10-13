@@ -1,0 +1,101 @@
+extends defaults/layout.pug
+include defaults/mixins.pug
+block content
+    .container
+        .card__preview
+            .card__preview__front
+                .dynamic-border
+                .card__preview__front--first
+                    .card__preview__front-chip
+                        +addPicture('chip.png', 'chip-image', 'display: block;max-width:50px;max-height:40px;')
+                    .card__preview__front-company
+                        +addPicture('visa.png','company-image','display:block;max-width:70px;max-height:45px;')
+                .card__preview__front--second
+                    .card__preview__front-number
+                        .card__preview__front-number--firstFour 
+                            span.digit(data-index="0") #
+                            span.digit(data-index="1") #
+                            span.digit(data-index="2") #
+                            span.digit(data-index="3") #
+                        .card__preview__front-number--secondFour 
+                            span.digit(data-index="4") #
+                            span.digit(data-index="5") #
+                            span.digit(data-index="6") #
+                            span.digit(data-index="7") #
+                        .card__preview__front-number--thirdFour 
+                            span.digit(data-index="8") #
+                            span.digit(data-index="9") #
+                            span.digit(data-index="10") #
+                            span.digit(data-index="11") #
+                        .card__preview__front-number--fourthFour 
+                            span.digit(data-index="12") #
+                            span.digit(data-index="13") #
+                            span.digit(data-index="14") #
+                            span.digit(data-index="15") #
+                .card__preview__front--third
+                    .card__preview__front-holder
+                        .card__preview__front-holder--label Card Holder
+                        .card__preview__front-holder--name 
+                    .card__preview--expires
+                        .card__preview__front-expires--label Expires 
+                        .card__preview__front-expires--date
+                            span.digit M
+                            span.digit M
+                            span /
+                            span.digit Y
+                            span.digit Y
+            .card__preview__back
+                .card__preview__back-stripe
+                .card__preview__back__box 
+                    .card__preview__back__box-label CVV
+                    .card__preview__back__box-inputView ###
+                    .card__preview__back__box-company
+                        +addPicture('visa.png','company-image','display:block;max-width:70px;max-height:40px; ')
+        form.card__form(action="/submit", method="post")
+            label(for="cardNumber") Card Number
+            input.card__form--input(type="text" id="cardNumber" name="cardNumber" placeholder="Card number" value=cardNumber onChange=handleInputChange minLength="19" maxLength="19")
+            span.card__form--error#cardNumberError
+            
+            label(for="cardName") Card Name
+            input.card__form--input(type="text" id="cardName" name="cardName")
+            span.card__form--error#cardNameError
+
+            .card__form__row
+                .card__form__group
+                    label(for="expDateMonth") Expiration Date
+                    select#expDateMonth.card__form--select(name="expDateMonth")
+                        option(disabled selected value='') Month
+                        option 01
+                        option 02
+                        option 03
+                        option 04
+                        option 05
+                        option 06
+                        option 07
+                        option 08
+                        option 09
+                        option 10
+                        option 11
+                        option 12
+                .card__form__group
+                    select#expDateYear.card__form--select(name="expDateYear")
+                        option(disabled selected value='') Year
+                        option 2019
+                        option 2020
+                        option 2021
+                        option 2022
+                        option 2023
+                        option 2024
+                        option 2024
+                        option 2025
+                        option 2026
+                        option 2027
+                        option 2028
+                        option 2029
+                        option 2030
+                .card__form__group
+                    label(for="cardCVV") CVV
+                    input.card__form--input(type="number" id="cardCVV" name="cardCVV" placeholder="CVV" maxlength="4" minlength="3")
+            span.card__form--error#expDateError
+            span.card__form--error#cardCVVError
+            button(type="submit") Submit
