@@ -1,50 +1,30 @@
-const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
-const ErrorNotificationPlugin = require("webpack-error-notification-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const PugPlugin = require('pug-plugin');
 
-
-
-const devMode = process.env.NODE_ENV !== "production";
-let slides = [];
-slides.push(addSlide('index'))
-
-
-const browserSync = new BrowserSyncPlugin({
-    host: "localhost",
-    port: 3000,
-    proxy: "http://localhost:8080/",
-});
-
-const isProduction = process.env.NODE_ENV === "production";
-
-const miniCss = new MiniCssExtractPlugin({
-    filename: "css/[name].css",
-});
-
-const moduleReplacement = new webpack.HotModuleReplacementPlugin();
-const noEmit = new webpack.NoEmitOnErrorsPlugin();
+const isDevel = process.env.NODE_ENV !== 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    entry: [`${__dirname}/js/main.js`, `${__dirname}/scss/app.scss`],
-
     output: {
         path: `${__dirname}/dist`,
-        filename: "js/main.js",
-    },
-    
-
-    devServer: {
-        hot: true,
-        static: "./dist",
+        clean: true,
     },
 
-    devtool: devMode ? "inline-source-map" : false,
+    devtool: isDevel ? 'inline-source-map' : false,
 
     performance: {
         hints: false,
+    },
+
+    resolve: {
+        alias: {
+            // (best practice) webpack aliases can be used in HTML, SCSS, JS to avoid relative paths like `../../images/`
+            '@images': path.join(__dirname, 'src/images'),
+            '@fonts': path.join(__dirname, 'src/fonts'),
+            '@scripts': path.join(__dirname, 'src/js'),
+            '@styles': path.join(__dirname, 'src/scss'),
+        },
     },
 
     module: {
@@ -52,40 +32,14 @@ module.exports = {
             {
                 test: /\.js?$/,
                 exclude: /(node_modules|bower_components)/,
-                loader: "babel-loader",
+                loader: 'babel-loader',
                 options: {
-                    presets: ["@babel/preset-env"],
+                    presets: ['@babel/preset-env'],
                 },
             },
             {
                 test: /\.scss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: "../",
-                        },
-                    },
-
-                    {
-                        loader: "css-loader",
-                        options: { sourceMap: devMode, url: true },
-                    },
-                    {
-                        loader: 'resolve-url-loader',
-                        options: { sourceMap: true },
-                    },
-                    {
-                        loader: "sass-loader",
-                        options: { sourceMap: true },
-                    },
-                ],
-            },
-            {
-                test: /\.pug$/,
-                use: {
-                    loader: "@webdiscus/pug-loader",
-                },
+                use: [ 'css-loader',  'sass-loader'],
             },
             {
                 test: /\.(jpg|png|gif|svg|woff|woff2|eot|ttf|otf)$/i,
@@ -93,35 +47,35 @@ module.exports = {
                 generator: {
                     filename: 'images/[name][ext]'
                 },
-                // use: [
-                //     {
-                //         loader: "file-loader",
-                //         options: {
-                //             name: "images/[name].[ext]",
-                //         },
-                //     }
-                // ],
             },
         ],
     },
 
     plugins: [
-        new CleanWebpackPlugin(),
-        new ErrorNotificationPlugin(),
-        browserSync,
-        miniCss,
-        ...slides,
-        noEmit,
-        moduleReplacement,
-
+        new PugPlugin({
+            entry: {
+                index: 'src/views/index.pug',
+            },
+            js: {
+                filename: 'js/[name].[contenthash:8].js', // JS output filename
+            },
+            css: {
+                filename: 'css/[name].[contenthash:8].css', // CSS output filename
+            },
+        }),
+        new webpack.NoEmitOnErrorsPlugin(),
     ],
-};
 
-function addSlide(name) {
-    return new HtmlWebpackPlugin({
-        template: `views/${name}.pug`,
-        inject: "body",
-        mobile: true,
-        filename: `${name}.html`,
-    });
-}
+    // enable live reload
+    devServer: {
+        static: path.join(__dirname, 'dist'),
+        watchFiles: {
+            paths: ['src/**/*.*'],
+            options: {
+                usePolling: true,
+            },
+        },
+        hot: true,
+        open: true,
+    },
+};
